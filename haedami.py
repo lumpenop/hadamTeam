@@ -1,4 +1,4 @@
 
 if __name__ == '__main__':
 
- print(d'haedamimedasdadasdd2')
+ print('haedamimedasdadasdd2')
