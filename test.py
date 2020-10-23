@@ -1,19 +1,21 @@
-import cv2
-from flask import Flask
+import pymysql
 
-app = Flask(__name__)
+db = pymysql.connect(host='101.101.218.133',
+                     # port=3306,
+                     user='root',
+                     passwd='1234',
+                     db='SBA_3',
+                     charset='utf8')
 
-host_addr = "0.0.0.0"
-port_num = "8080"
-
-@app.route("/")
-def info():
-    return "<h1>Hello World!</h1>"
-
-@app.route("/hello")
-def hello():
-    return "<h1>JaeSung Fighting</h1>"
-
-
-if __name__ == "__main__":
-    app.run(host=host_addr, port=port_num)
+try:
+    cursor = db.cursor()
+    sql = "SELECT * FROM price"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    for row_data in result:
+        print(row_data[0],
+              row_data[1],
+              row_data[2],
+              row_data[3])
+finally:
+    db.close()

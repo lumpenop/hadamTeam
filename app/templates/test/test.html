@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="button" value="INSERT 예제" onclick="location.href='/test/insert'">
+  <input type="button" value="SELECT 예제" onclick="location.href='/test/select'">
+  <input type="button" value="UPDATE 예제" onclick="location.href='/test/update'">
+
+  <br><br><br>
+  <div>
+      INSERT result : {{result}}
+  </div>
+  <br>
+  <div>
+      SELECT result price_id  : {{resultData.price_id}}<br>
+      SELECT result size : {{resultData.size}}
+      SELECT result price_name : {{resultData.price_name}}
+      SELECT result price : {{resultData.price}}
+      SELECT result classification : {{resultData.classification}}
+  </div>
+  <br>
+  <div>
+      UPDATE result idx  : {{resultUPDATE.idx}}<br>
+      UPDATE result test : {{resultUPDATE.test}}
+  </div>
+  <br>
+
+</body>
+</html>
