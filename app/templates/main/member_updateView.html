@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/starter-template.css" rel="stylesheet">
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <<script>
+        var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+        var maxSize = 5242880; //5MB
+
+        $(document).ready(function(){
+
+        });
+
+        function checkExtension(fileName, fileSize){
+            if(fileSize >= maxSize){
+                alert("파일 사이즈 초과");
+                return false;
+            }
+
+            if(regex.test(fileName)){
+                alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                return false;
+            }
+            return true;
+        }
+
+
+        //직원목록
+        function fn_list(){
+
+            window.location.href="/member_list";
+
+        }
+
+        //직원수정
+        function fn_update(){
+
+            var memberUpdateForm = document.memberUpdateForm;
+            var memberName = memberUpdateForm.memberName.value;
+            var age = memberUpdateForm.age.value;
+            var file = memberUpdateForm.file.value;
+            var inputFile = $("input[name='file']");
+            var files = inputFile[0].files;
+
+            if(!memberName){
+                alert("이름을 입력해주세요.");
+                return false;
+            }
+            if(!age){
+                alert("나이를 입력해주세요.");
+                return false;
+            }
+            if(!file){
+                alert("이미지파일을 등록해주세요.");
+                return false;
+            }
+
+            if(!checkExtension(files[0].name, files[0].size)){
+				return false;
+			}
+
+            memberUpdateForm.submit();
+
+        }
+
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/main">[Haedam AI자동결제시스템]</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/main">home</a></li>
+            <li><a href="/member_list">직원목록</a></li>
+            <li><a href="/member_insertP">직원등록</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>직원상세변경 Page</h1>
+        <form action="http://localhost:8080/member_update" name="memberUpdateForm" method="POST" enctype="multipart/form-data">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Update Your Wish</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="memberId">사번</label>
+                    <div class="col-md-4">
+                        <input id="memberId" name="memberId" type="text" placeholder="사번을 입력하세요" class="form-control input-md" value="{{resultData.member_id}}" readonly>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="memberName">이름</label>
+                    <div class="col-md-4">
+                        <input id="memberName" name="memberName" type="text" placeholder="이름을 입력하세요" class="form-control input-md" value="{{resultData.member_name}}">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="age">나이</label>
+                    <div class="col-md-4">
+                        <input id="age" name="age" type="text" placeholder="나이를 입력하세요" class="form-control input-md" value="{{resultData.age}}">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="sex">성별</label>
+                    <div class="col-md-4">
+                        <select class="form-control" id="sex" name="sex">
+                          {% if resultData.sex == '남자' %}
+                              <option value="남자" selected>남자</option>
+                              <option value="여자">여자</option>
+                          {% else %}
+                              <option value="남자">남자</option>
+                              <option value="여자" selected>여자</option>
+                          {%endif %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-md-4 control-label" for="txtPost">Post</label>-->
+<!--                        <div class="col-md-4">-->
+<!--                            <textarea class="form-control" id="txtPost" name="inputDescription"></textarea>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                <!-- file -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="imgfile"></label>
+                    <div class="col-md-4">
+                        {% if resultData.file_path is not none %}
+                        <span>기존파일 : {{resultData.file_path[18:]}}</span>
+                        {%endif %}
+                        <input id="imgfile" name="file" class="btn btn-primary" type="file" accept=".jpg,.jpeg,.png,.gif,.bmp" />
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="writebutton"></label>
+                    <div class="col-md-4">
+                        <input id="listbutton" name="listbutton" onclick="fn_list()" class="btn btn-primary" type="button" value="목록" />
+                        <input id="updatebutton" name="updatebutton" onclick="fn_update()" class="btn btn-primary" type="button" value="수정하기" />
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+      </div>
+
+    </div><!-- /.container -->
+
+
+
+
+</body>
+</html>

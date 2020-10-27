@@ -1,0 +1,27 @@
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('1', 'p_size', 'small', '소');
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('2', 'p_size', 'mideum', '중');
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('3', 'p_size', 'big', '대');
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('4', 'p_sex', 'male', '남');
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('5', 'p_sex', 'female', '여');
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('6', 'p_item', 'beverage', '음료류');
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('7', 'p_item', 'snack', '과자류');
+INSERT INTO `SBA_3`.`common` (`common_id`, `parent_code`, `code`, `code_name`) VALUES ('8', 'p_item', 'bread', '빵류');
+			 
+INSERT INTO `SBA_3`.`member` (`member_id`, `name`, `age`, `sex`) VALUES ('1', '허순종', '37', 'male');
+INSERT INTO `SBA_3`.`member` (`member_id`, `name`, `age`, `sex`) VALUES ('2', '백상봉', '42', 'male');
+INSERT INTO `SBA_3`.`member` (`member_id`, `name`, `age`, `sex`) VALUES ('3', '김화영', '27', 'male');
+INSERT INTO `SBA_3`.`member` (`member_id`, `name`, `age`, `sex`) VALUES ('4', '김승원', '31', 'male');
+INSERT INTO `SBA_3`.`member` (`member_id`, `name`, `age`, `sex`) VALUES ('5', '유영남', '25', 'male');
+			 
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('1', 'small', '아메리카노', '1000', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('2', 'big', '아메리카노', '1500', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('3', 'small', '카페라떼', '1500', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('4', 'big', '카페라떼', '2000', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('5', 'small', '바닐라라떼', '1500', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('6', 'big', '바닐라라떼', '2000', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('7', 'small', '딸기라떼', '2000', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `size`, `price_name`, `price`, `classification`) VALUES ('8', 'small', '초코라떼', '2000', 'beverage');
+INSERT INTO `SBA_3`.`price` (`price_id`, `price_name`, `price`, `classification`) VALUES ('9', '버터링쿠키', '1000', 'snack');
+INSERT INTO `SBA_3`.`price` (`price_id`, `price_name`, `price`, `classification`) VALUES ('10', '버터칩포테이토', '1000', 'snack');
+INSERT INTO `SBA_3`.`price` (`price_id`, `price_name`, `price`, `classification`) VALUES ('11', '양파링', '1000', 'snack');
+

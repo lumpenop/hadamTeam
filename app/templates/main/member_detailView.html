@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/starter-template.css" rel="stylesheet">
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <<script>
+        $(document).ready(function(){
+
+
+        });
+
+        //직원목록
+        function fn_list(){
+
+            window.location.href="/member_list";
+
+        }
+
+        //직원수정페이지
+        function fn_updateView(member_id){
+            console.log('member_id : ' + member_id);
+            window.location.href="/member_updateView/"+""+member_id;
+
+        }
+
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/main">[Haedam AI자동결제시스템]</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/main">home</a></li>
+            <li><a href="/member_list">직원목록</a></li>
+            <li><a href="/member_insertP">직원등록</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>직원상세 Page</h1>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="memberId">사번</label>
+                <div class="col-md-4">
+                    {{resultData.member_id}}
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="name">이름</label>
+                <div class="col-md-4">
+                    {{resultData.member_name}}
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="age">나이</label>
+                <div class="col-md-4">
+                    {{resultData.age}}
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="sex">성별</label>
+                <div class="col-md-4">
+                    {{resultData.sex}}
+                </div>
+            </div>
+
+            {% if resultData.file_path is not none %}
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="file_path">사진</label>
+                <div class="col-md-4">
+                    <img src="{{url_for('static', filename=resultData.file_path[11:])}}">
+                </div>
+            </div>
+            {%endif %}
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="listbutton"></label>
+                <div class="col-md-4">
+                    <input id="listbutton" name="listbutton" onclick="fn_list()" class="btn btn-primary" type="button" value="목록" />
+                    <a class="btn btn-primary" href="/member_updateView/{{resultData['member_id']}}">수정</a>
+                </div>
+            </div>
+      </div>
+
+    </div><!-- /.container -->
+
+
+
+
+</body>
+</html>
