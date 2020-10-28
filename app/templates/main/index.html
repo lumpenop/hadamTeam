@@ -13,11 +13,67 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <style>
+        .blink_text {
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 3s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count: infinite;
+            -moz-animation-name: blinker;
+            -moz-animation-duration: 3s;
+            -moz-animation-timing-function: linear;
+            -moz-animation-iteration-count: infinite;
+            animation-name: blinker;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite; color: red;
+        }
 
-    <<script>
+        @-moz-keyframes blinker {
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+
+        @-webkit-keyframes blinker {
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+
+        @keyframes blinker {
+            0% { opacity: 1.0; }
+            50% { opacity: 0.0; }
+            100% { opacity: 1.0; }
+        }
+
+    </style>
+    <script>
+        var imgBoolean = true;
         $(document).ready(function(){
-            confirm('실행하시겠습니까?');
+
+
         });
+
+        function f_read(){
+            var imgUrl = "";
+            if (imgBoolean){
+                imgUrl = "{{ url_for('main.video_feed') }}";
+                if (confirm('실행하시겠습니까?')){
+                    $("#img_box img").css("display", "inline-block");
+                    $("#img_box img").attr("src", imgUrl);
+                    imgBoolean = false;
+                }
+            }else{
+                imgUrl = "";
+                if (confirm('취소하시겠습니까?')){
+                    $("#img_box img").css("display", "none");
+                    $("#img_box img").attr("src", imgUrl);
+                    imgBoolean = true;
+                }
+            }
+
+        }
 
     </script>
 </head>
@@ -46,10 +102,10 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-        <p><img src="{{ url_for('main.video_feed') }}"></p>
-        <button onclick="">재실행</button>
+        <h1>자동결제시스템</h1>
+        <p class="lead blink_text">결제하시려면 아래 "재실행" 버튼을 눌러주십시오.</p>
+        <p id="img_box"><img src=""></p>
+        <button onclick="f_read()">재실행</button>
       </div>
 
     </div><!-- /.container -->

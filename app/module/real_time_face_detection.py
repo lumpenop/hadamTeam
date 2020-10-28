@@ -38,18 +38,19 @@ def gen():
         count += 1
         img = cv2.imdecode(image_buffer, cv2.IMREAD_COLOR)
         if count % 30 == 0:
+            print("img = ", img)
             # if
-            num += 1
-            cv2.imwrite('test' + str(num) + '.jpg', img)
+            # num += 1
+            # cv2.imwrite('test' + str(num) + '.jpg', img)
 
-        print("count = ", count)
+        # print("count = ", count)
         # cv2.imwrite('test' + str(count) + '.jpg', img)
 
         # if int(fps) == 1:
         #     print(frame)
 
 
-        if count == 91:
+        if count % 91 == 0:
             print("%d frame: %s" % (count, frame))
             result = '12345'
             break
