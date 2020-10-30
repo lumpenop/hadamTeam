@@ -14,9 +14,11 @@ from functools import partial
 from queue import Queue
 from nlp import nlp
 from app.module import dbModule
-
+import pandas as pd
 import numpy as np
 import time
+import re
+
 
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
@@ -211,17 +213,35 @@ class App(QWidget):
             cv2.putText(cv_img, self.face_name, (50, 50), cv2.FONT_HERSHEY_SIMPLEX,
                                 1,  (255, 0, 0), 2, cv2.LINE_AA)
             if self.face_name != 'Unknown':
-                sys.exit(app.exec_())
                 print("self.face_name = ", self.face_name)
                 db_class = dbModule.Database()
 
                 sql = "SELECT * FROM member \
                             where member_id = %s"
                 row = db_class.executeOne(sql, self.face_name)
-                print("row.member_name = ", row["member_name"])
+                # print("row.member_name = ", row["member_name"])
 
-                menu = {'따뜻한아메리카노': 1000, '시원아메리카노': 1000, '따뜻한라테': 2000, '시원라테': 2000,
-                        '따뜻한카라멜마끼아또': 2000, '시원카라멜마키아또': 2000, '레몬에이드': 2000}
+                sql2 = "SELECT hot_or_ice, menu_name, menu_cost FROM menu"
+                row2 = db_class.executeAll(sql2)
+                # print("row2.menu_name = ", row2[0]["menu_name"])
+
+
+                # row2 = pd.DataFrame(row2)
+
+                menu = {}
+                for i in range(len(row2)):
+                    # print(row2[i]['menu_name'])
+                    a = row2[i]['hot_or_ice'] + row2[i]['menu_name']
+                    if a == '따뜻한라떼' or a == '시원한라떼':
+                        a = a[:-1] + '테'
+
+                    if a[0] == '시':
+                        a = re.sub('[한]', '', a)
+                    menu.setdefault(a, row2[i]['menu_cost'])
+
+                # menu = {'따뜻한아메리카노': 1000, '시원아메리카노': 1000, '따뜻한라테': 2000, '시원라테': 2000,
+                #         '따뜻한카라멜마끼아또': 2000, '시원카라멜마키아또': 2000, '레몬에이드': 2000}
+                print("menu = ", menu)
                 nlp(row["member_id"], row["member_name"], menu)
 
 
