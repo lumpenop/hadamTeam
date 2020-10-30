@@ -1,0 +1,46 @@
+음성관련 install
+
+	pip install konlpy
+	pip install flask
+	pip install opencv-python
+	pip install pyaudio
+	pip install pygame
+
+이미지관련 install
+	pip install PyQt5
+
+
+port추가방법 및 여는방법
+	1. /etc/sysconfig/iptables 파일에 >> -A INPUT -m state --state NEW -m tcp -p tcp --dport 8080 -j ACCEPT 추가한다.
+
+
+	2. iptables -I INPUT 1 -p tcp --dport 1234 -j ACCEPT
+	   iptables -I INPUT 1 -p udp --dport 1234 -j ACCEPT
+
+	   iptables -I OUTPUT 1 -p tcp --dport 1234 -j ACCEPT 
+	   iptables -I OUTPUT 1 -p udp --dport 1234 -j ACCEPT
+
+	3. iptables -L -v
+
+	4. service iptables save
+	5. /etc/sysconfig/iptables restart
+	6. netstat -antup #사용확인
+	   ss -ltp
+
+	/etc/sysconfig/iptables restart
+
+실행되고있는 스케줄러 확인방법 
+	ps -ef | grep server*
+	
+스케줄러 죽이는방법
+	kill -9 PID
+
+이미지인식 서버접속방법
+ip: 101.101.218.133
+pw:SaltluxSBA!
+
+source activate psb_project_test
+cd /data/sba/psb/face/
+nohup python -u server.py &
+
+tail -f nohup.out
