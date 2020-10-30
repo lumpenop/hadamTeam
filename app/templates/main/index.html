@@ -14,6 +14,18 @@
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <style>
+        #menu_box{
+            width:179px;
+            height:100px;
+            border: 1px solid #333;
+            float: left;
+            margin: 0px 10px 10px 0px;
+            padding: 5px;
+        }
+        #menu_box dd{
+            margin-top: 2px;
+        }
+
         .blink_text {
             -webkit-animation-name: blinker;
             -webkit-animation-duration: 3s;
@@ -51,7 +63,9 @@
     <script>
         var imgBoolean = true;
         $(document).ready(function(){
-
+            $("#popbutton").click(function(){
+                $('div.modal').modal();
+            })
 
         });
 
@@ -63,6 +77,13 @@
                     $("#img_box img").css("display", "inline-block");
                     $("#img_box img").attr("src", imgUrl);
                     imgBoolean = false;
+
+                    setTimeout(function(){
+<!--                        var time_text = '(' + time +'초 후 목록이 갱신됩니다.)';-->
+                        $("#modal_clickE").trigger("click");
+<!--                        time&#45;&#45;;-->
+                    },4000);
+
                 }
             }else{
                 imgUrl = "";
@@ -94,6 +115,7 @@
             <li class="active"><a href="/main">home</a></li>
             <li><a href="/member_list">직원목록</a></li>
             <li><a href="/member_insertP">직원등록</a></li>
+            <li><a href="/member_paymentList">결제목록</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -101,12 +123,45 @@
 
     <div class="container">
 
-      <div class="starter-template">
-        <h1>자동결제시스템</h1>
-        <p class="lead blink_text">결제하시려면 아래 "재실행" 버튼을 눌러주십시오.</p>
-        <p id="img_box"><img src=""></p>
-        <button onclick="f_read()">재실행</button>
-      </div>
+        <div class="starter-template">
+          <h1>자동결제시스템</h1>
+          <p class="lead blink_text">결제하시려면 아래 "실행" 버튼을 눌러주십시오.</p>
+          <p id="img_box"><img src=""></p>
+          <button class="btn btn-default" onclick="f_read()">실행</button>
+<!--          <form method ="POST" action = "save">-->
+<!--               <button class="btn btn-default">녹음 시작</button>-->
+<!--          </form>-->
+        </div>
+
+        <button id="modal_clickE" class="btn btn-default" data-target="#layerpop" data-toggle="modal" style="display:none;">모달출력버튼</button><br/>
+        <div class="modal fade" id="layerpop" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- header -->
+              <div class="modal-header">
+                <!-- 닫기(x) 버튼 -->
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <!-- header title -->
+                <h4 class="modal-title">메뉴 목록</h4>
+              </div>
+              <!-- body -->
+              <div class="modal-body">
+                  <div style="overflow: hidden;">
+                  {% for result in resultData %}
+                    <div id="menu_box">
+                        <dl>
+                            <dt>메뉴명: {{result.menu_name}}</dt>
+                            <dd>{{result.hot_or_ice}}</dd>
+                            <dd>가격: {{result.menu_cost}}</dd>
+                        </dl>
+
+                    </div>
+                  {% endfor %}
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
     </div><!-- /.container -->
 

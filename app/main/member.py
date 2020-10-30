@@ -155,3 +155,38 @@ def member_delete(member_Id):
     db_class.commit()
 
     return redirect('/member_list')
+
+
+
+# 맴버 결제목록 페이지
+@member.route('/member_paymentList', methods=['GET'])
+def member_paymentList():
+    db_class = dbModule.Database()
+
+    sql = "SELECT a.*, ifnull(sum(b.cost), 0) as tt_cost FROM \
+            member as a LEFT OUTER JOIN new_table as b  \
+            ON a.member_id = b.member_id    \
+            group by a.member_id"
+    row = db_class.executeAll(sql)
+    print(row)
+
+    return render_template('/main/member_paymentList.html',
+                           result=None,
+                           resultData=row,
+                           resultUPDATE=None)
+
+
+
+# 맴버 결제상세페이지 HTML 렌더링
+@member.route('/member_detailPaymentList/<member_Id>', methods=['GET'])
+def member_detailPaymentList(member_Id):
+    db_class = dbModule.Database()
+
+    sql = "SELECT * FROM new_table \
+            where member_id = %s"
+    row = db_class.executeAll(sql, member_Id)
+    print(row)
+    return render_template('/main/member_detailPaymentList.html',
+                           result=None,
+                           resultData=row,
+                           resultUPDATE=None)
