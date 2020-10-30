@@ -211,6 +211,7 @@ class App(QWidget):
             cv2.putText(cv_img, self.face_name, (50, 50), cv2.FONT_HERSHEY_SIMPLEX,
                                 1,  (255, 0, 0), 2, cv2.LINE_AA)
             if self.face_name != 'Unknown':
+                sys.exit(app.exec_())
                 print("self.face_name = ", self.face_name)
                 db_class = dbModule.Database()
 
